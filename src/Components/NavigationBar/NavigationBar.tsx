@@ -12,7 +12,7 @@ export const NavigationBar = () => {
 					</NavLink>
 					<Nav className="me-auto">
 						<NavLink className="me-4" to="/">Penguins</NavLink>
-						<NavLink className="me-4"to={`users`}>ToDo List</NavLink>
+						<NavLink className="me-4"to={`todos`}>ToDo List</NavLink>
 					</Nav>
 				</Navbar>
 		</>

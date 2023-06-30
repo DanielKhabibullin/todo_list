@@ -6,6 +6,7 @@ import {
 	RouterProvider
 } from 'react-router-dom';
 import {Layout} from './Components/Layout/Layout';
+import {Todos} from './Components/Pages/Todos/Todos';
 import {Users} from './Components/Pages/Users/Users';
 
 
@@ -15,7 +16,7 @@ const App = () => {
 		createRoutesFromElements(
 			<Route path="/" element={<Layout />}>
 					<Route index element={<Users />} />
-					{/* <Route path="todos" element={<Todos />} /> */}
+					<Route path="todos" element={<Todos />} />
 			</Route>
 		)
 	);

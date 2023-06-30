@@ -1,6 +1,7 @@
 import ky from "ky";
 import {Table} from 'react-bootstrap';
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 interface User {
 	id: number;
@@ -16,7 +17,7 @@ interface User {
 	};
 }
 
-const api = ky.create({
+export const api = ky.create({
 		prefixUrl: "https://jsonplaceholder.typicode.com",
 	});
 
@@ -45,14 +46,14 @@ export const Users: React.FC = () => {
 						<th>Name</th>
 						<th className="d-none d-md-table-cell">Email</th>
 						<th>Adress</th>
-						<th  className="d-none d-md-table-cell">Company</th>
+						<th className="d-none d-md-table-cell">Company</th>
 					</tr>
 				</thead>
 				<tbody>
 					{users.map((user, index) => (
 						<tr key={user.id}>
 							<td>{index + 1}</td>
-							<td>{user.name}</td>
+							<td><Link to={`todos/${user.id}`}>{user.name}</Link></td>
 							<td className="d-none d-md-table-cell">{user.email}</td>
 							<td>{
 							`${user.address.street}, ${user.address.city}, ${user.address.zipcode}`

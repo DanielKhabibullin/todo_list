@@ -11,12 +11,12 @@ import {Users} from './Components/Pages/Users/Users';
 
 
 const App = () => {
-
+	//TODO id
 	const router = createBrowserRouter(
 		createRoutesFromElements(
-			<Route path="/" element={<Layout />}>
+			<Route path='/' element={<Layout />}>
 					<Route index element={<Users />} />
-					<Route path="todos" element={<Todos />} />
+					<Route path='todos/:userId' element={<Todos />} />
 			</Route>
 		)
 	);

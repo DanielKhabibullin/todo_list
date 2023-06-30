@@ -1,7 +1,13 @@
 import {useEffect, useState} from "react";
 import {Button, Table} from "react-bootstrap";
+import {useParams} from "react-router-dom";
+import {Todo} from "../../../redux/action/todoActions";
+import {api} from "../Users/Users";
 
-export const Todos = () => {
+
+export const Todos: React.FC = () => {
+	const {userId} = useParams<{userId: string}>();
+	const [todos, setTodos] = useState<Todo[]>([]);
 	const [text, setText] = useState('');
 	const [disabled, setDisabled] = useState(true);
 
@@ -19,6 +25,20 @@ export const Todos = () => {
 			setText(e.target.value.trimStart());
 		}
 	};
+
+
+	useEffect(() => {
+		async function getAllTodos() {
+			try {
+				const response = await api
+					.get(`todos?userId=${userId}`).json<Todo[]>();
+				setTodos(response);
+			} catch (err) {
+				console.warn(err);
+			}
+		}
+		getAllTodos();
+	}, [userId]);
 
 
 	return (
@@ -57,13 +77,28 @@ export const Todos = () => {
 							<tr>
 								<th>№</th>
 								<th>Task</th>
-								<th>Status</th>
+								<th>Completed</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
-
 						<tbody>
-
+							{todos.map((todo, index) => (
+								<tr className={todo.completed ? 'table-success' : 'table-light'}key={todo.id}>
+									<td>{index + 1}</td>
+									<td>{todo.title}</td>
+									<td>{todo.completed ? 'Yes' : 'No'}</td>
+									<td>
+										<Button
+											variant="danger"
+											type='reset'
+											onClick={() => {
+												api.delete(`todos/${todo.id}`);
+											}}
+										> Delete
+										</Button>
+									</td>
+								</tr>
+							))}
 						</tbody>
 					</Table>
 		</>

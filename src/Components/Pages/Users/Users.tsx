@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 interface User {
 	id: number;
 	name: string;
+	email: string;
 	address: {
 		street: string;
 		city: string;
@@ -42,8 +43,9 @@ export const Users: React.FC = () => {
 					<tr>
 						<th>№</th>
 						<th>Name</th>
+						<th className="d-none d-md-table-cell">Email</th>
 						<th>Adress</th>
-						<th>Company</th>
+						<th  className="d-none d-md-table-cell">Company</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,8 +53,11 @@ export const Users: React.FC = () => {
 						<tr key={user.id}>
 							<td>{index + 1}</td>
 							<td>{user.name}</td>
-							<td>{`${user.address.street}, ${user.address.city}, ${user.address.zipcode}`}</td>
-							<td>{user.company.name}</td>
+							<td className="d-none d-md-table-cell">{user.email}</td>
+							<td>{
+							`${user.address.street}, ${user.address.city}, ${user.address.zipcode}`
+							}</td>
+							<td className="d-none d-md-table-cell">{user.company.name}</td>
 						</tr>
 					))}
 				</tbody>

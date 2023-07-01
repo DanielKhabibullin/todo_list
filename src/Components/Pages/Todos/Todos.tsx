@@ -1,13 +1,12 @@
 import {useEffect, useState} from "react";
 import {Button, Table} from "react-bootstrap";
 import {useParams} from "react-router-dom";
-import {Todo} from "../../../redux/action/todoActions";
-import {api} from "../Users/Users";
-
+import {api, getAllTodos, Todo} from "../../../redux/action/todoActions";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 
 export const Todos: React.FC = () => {
-	const {userId} = useParams<{userId: string}>();
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const {userId} = useParams<{userId?: string}>();
+	const dispatch = useAppDispatch();
 	const [text, setText] = useState('');
 	const [disabled, setDisabled] = useState(true);
 
@@ -26,21 +25,16 @@ export const Todos: React.FC = () => {
 		}
 	};
 
-
 	useEffect(() => {
-		async function getAllTodos() {
-			try {
-				const response = await api
-					.get(`todos?userId=${userId}`).json<Todo[]>();
-				setTodos(response);
-			} catch (err) {
-				console.warn(err);
-			}
-		}
-		getAllTodos();
-	}, [userId]);
+		dispatch<any>(getAllTodos(userId || ''));
+	}, [dispatch, userId]);
 
-
+	const {todoList, loading, lastModified} = useAppSelector(
+		(state) => state.todo
+	);
+console.log(todoList);
+console.log(loading);
+console.log(lastModified);
 	return (
 		<>
 				<h1 className='text-center mt-4'>ToDo List</h1>
@@ -82,7 +76,7 @@ export const Todos: React.FC = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{todos.map((todo, index) => (
+							{todoList.map((todo, index) => (
 								<tr className={todo.completed ? 'table-success' : 'table-light'}key={todo.id}>
 									<td>{index + 1}</td>
 									<td>{todo.title}</td>

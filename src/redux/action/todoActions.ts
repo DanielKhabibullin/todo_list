@@ -7,7 +7,9 @@ import {
 	TodoDispatchType,
 } from './todoActionTypes';
 
-const API_BASE_URL = 'https://jsonplaceholder.typicode.com/todos';
+export const api = ky.create({
+		prefixUrl: "https://jsonplaceholder.typicode.com",
+	});
 
 export interface Todo {
 	userId: number;
@@ -16,12 +18,12 @@ export interface Todo {
 	completed: boolean;
 }
 
-export const getAllTodos = (userId: number) =>
-	async (dispatch: Dispatch<TodoDispatchType>) => {
+export const getAllTodos = (userId: string) =>
+	async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
 		dispatch({type: LOADING_START});
 
 		try {
-			const response = await ky.get(`${API_BASE_URL}?userId=${userId}`).json<Todo[]>();
+			const response = await api.get(`todos?userId=${userId}`).json<Todo[]>();
 			console.log(response);
 			if (response) {
 				console.log('Data fetched successfully');

@@ -1,7 +1,7 @@
 import {composeWithDevTools} from '@redux-devtools/extension';
 import {applyMiddleware, createStore} from 'redux';
 import ReduxThunk from 'redux-thunk';
-import rootReducer from './rootReducer';
+import {RootReducer} from './rootReducer';
 
 const middleware = [
 	ReduxThunk,
@@ -9,10 +9,8 @@ const middleware = [
 
 const enhancers = composeWithDevTools(applyMiddleware(...middleware));
 
-const store = createStore(rootReducer, undefined, enhancers);
+export const store = createStore(RootReducer, undefined, enhancers);
 
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
-
-export default store;

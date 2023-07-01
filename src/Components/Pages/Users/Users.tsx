@@ -1,7 +1,7 @@
-import ky from "ky";
 import {Table} from 'react-bootstrap';
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {api} from "../../../redux/action/todoActions";
 
 interface User {
 	id: number;
@@ -16,10 +16,6 @@ interface User {
 		name: string;
 	};
 }
-
-export const api = ky.create({
-		prefixUrl: "https://jsonplaceholder.typicode.com",
-	});
 
 export const Users: React.FC = () => {
 	const [users, setUsers] = useState<User[]>([]);

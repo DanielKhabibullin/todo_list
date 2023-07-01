@@ -24,7 +24,6 @@ export const getAllTodos = (userId: string) =>
 
 		try {
 			const response = await api.get(`todos?userId=${userId}`).json<Todo[]>();
-			console.log(response);
 			if (response) {
 				console.log('Data fetched successfully');
 				dispatch({

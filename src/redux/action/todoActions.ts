@@ -1,6 +1,7 @@
 import ky from 'ky';
 import {Dispatch} from 'redux';
 import {
+	ADD_TODO_SUCCESS,
 	FETCH_TODO_SUCCESS,
 	LOADING_END,
 	LOADING_START,
@@ -16,7 +17,13 @@ export interface Todo {
 	id: number;
 	title: string;
 	completed: boolean;
-}
+};
+
+export interface AddTodoPayload {
+	userId: string | undefined;
+	title: string;
+	completed: boolean;
+};
 
 export const getAllTodos = (userId: string) =>
 	async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
@@ -39,4 +46,19 @@ export const getAllTodos = (userId: string) =>
 		}
 	};
 
-
+export const addTodo = (payload: AddTodoPayload) =>
+	async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
+		try {
+			const response = await api.post('todos',
+				{json: payload}).json<Todo>();
+			if (response) {
+				console.log('New item added');
+				dispatch({
+					type: ADD_TODO_SUCCESS,
+					payload: response,
+				});
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+	};

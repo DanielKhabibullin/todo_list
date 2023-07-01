@@ -41,8 +41,3 @@ export type TodoDispatchType =
 	| AddTodoSuccess
 	| DeleteTodoSuccess
 	| UpdateTodoSuccess;
-
-export enum ResponseCode {
-	OKAY = 200,
-	CREATED = 201,
-}

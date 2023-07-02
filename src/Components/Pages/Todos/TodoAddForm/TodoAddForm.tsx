@@ -29,12 +29,6 @@ export const TodoAddForm: React.FC = () => {
 
 	const handleAddTodo = async (e: React.FormEvent) => {
 		e.preventDefault();
-		// const form = e.target as HTMLFormElement
-		// const formData = new FormData(form);
-		// formData.append('title', title);
-		// formData.append('completed', 'false');
-		// formData.append('userId', userId || '');
-		// console.log(formData);
 		const payload: AddTodoPayload = {
 			userId,
 			title,
@@ -44,7 +38,8 @@ export const TodoAddForm: React.FC = () => {
 		await dispatch<any>(addTodo(payload));
 		setTitle('');
 		setIsLoading(false);
-	}
+	};
+
 	return (
 		<>
 			<form onSubmit={handleAddTodo}>
@@ -59,12 +54,14 @@ export const TodoAddForm: React.FC = () => {
 						/>
 					</label>
 					{isLoading ? (
-						<Circles
-							height="1.5em"
-							width="1.5em"
-							color="grey"
-							ariaLabel="loading"
-						/>
+						<div className='me-3 mb-3'>
+							<Circles
+								height="38px"
+								width="59px"
+								color="grey"
+								ariaLabel="loading"
+							/>
+						</div>
 					) : (
 						<Button
 							type='submit'

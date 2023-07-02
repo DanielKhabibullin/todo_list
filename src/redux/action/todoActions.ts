@@ -1,11 +1,14 @@
 import ky from 'ky';
 import {Dispatch} from 'redux';
+import { TodoType } from '../reducer/todoReducer';
 import {
 	ADD_TODO_SUCCESS,
+	DELETE_TODO_SUCCESS,
 	FETCH_TODO_SUCCESS,
 	LOADING_END,
 	LOADING_START,
 	TodoDispatchType,
+	UPDATE_TODO_SUCCESS,
 } from './todoActionTypes';
 
 export const api = ky.create({
@@ -62,3 +65,27 @@ export const addTodo = (payload: AddTodoPayload) =>
 			console.warn(err);
 		}
 	};
+
+export const deleteTodo = (id: number) =>
+	async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
+		try {
+			const response = await api.delete(`todos/${id}`).json();
+			if (response) {
+				dispatch({type: DELETE_TODO_SUCCESS, id});
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+};
+
+export const updateTodo = (payload: TodoType) =>
+async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
+		try {
+			const response = await api.put(`todos/${payload.id}`, {json: payload}).json();
+			if (response) {
+				dispatch({type: UPDATE_TODO_SUCCESS, payload});
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+};

@@ -1,13 +1,28 @@
-import {Button, Table} from "react-bootstrap";
-import {useAppSelector} from "../../../../redux/hooks";
+import {useState} from 'react';
+import {Button, Table} from 'react-bootstrap';
+import {useParams} from 'react-router-dom';
+import {deleteTodo} from '../../../../redux/action/todoActions';
+
+import {useAppDispatch, useAppSelector} from '../../../../redux/hooks';
 
 export const TodosTable = () => {
-	const {todoList, loading, lastModified} = useAppSelector(
-		(state) => state.todo
-	);
+	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useAppDispatch();
+	const {userId} = useParams<{userId?: string}>();
+	console.log(isLoading);
+	console.log(userId);
+	const {todoList, loading, lastModified} =
+		useAppSelector((state) => state.todo);
 	console.log(todoList);
 	console.log(loading);
 	console.log(lastModified);
+
+	const handleDeleteTodo = async (todoId: number) => {
+		setIsLoading(true);
+		await dispatch<any>(deleteTodo(todoId));
+		setIsLoading(false);
+	};
+
 	return (
 		<>
 			<Table striped bordered hover responsive>
@@ -15,26 +30,29 @@ export const TodosTable = () => {
 					<tr>
 						<th>№</th>
 						<th>Task</th>
-						<th className="d-none d-md-table-cell">Completed</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{todoList.map((todo, index) => (
 						<tr
-							className={todo.completed ? 'table-success' : 'table-light'}
+							className={todo.completed ? 'table-success' : 'table-danger'}
 							key={todo.id}
 						>
 							<td>{index + 1}</td>
 							<td>{todo.title}</td>
-							<td className="d-none d-md-table-cell">{todo.completed ? 'Yes' : 'No'}</td>
 							<td>
 								<Button
-									variant="danger"
-									type='reset'
-									onClick={() => {
-										console.log(`api.delete(todos/${todo.id}`);
-									}}
+									className='me-1 mb-1'
+									variant='secondary'
+									disabled={todo.completed}
+								>
+									Edit
+								</Button>
+								<Button
+									variant='danger'
+									className='me-1 mb-1'
+									onClick={() => handleDeleteTodo(todo.id)}
 								> Delete
 								</Button>
 							</td>

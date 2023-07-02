@@ -6,7 +6,7 @@ export const Layout = () => {
 	return (
 		<>
 			<NavigationBar />
-			<Container className="vh-100 w-100 d-flex align-items-center justify-content-center flex-column overflow-hidden">
+			<Container className="w-100 d-flex align-items-center justify-content-center flex-column pb-lg-5">
 				<Outlet />
 			</Container>
 		</>

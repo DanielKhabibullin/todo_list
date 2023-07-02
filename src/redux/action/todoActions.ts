@@ -1,6 +1,6 @@
 import ky from 'ky';
 import {Dispatch} from 'redux';
-import { TodoType } from '../reducer/todoReducer';
+import {TodoType} from '../reducer/todoReducer';
 import {
 	ADD_TODO_SUCCESS,
 	DELETE_TODO_SUCCESS,

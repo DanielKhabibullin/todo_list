@@ -30,8 +30,9 @@ interface DeleteTodoSuccess {
 	id: number;
 }
 
-interface UpdateTodoSuccess extends Omit<AddTodoSuccess, 'type'> {
+interface UpdateTodoSuccess {
 	type: typeof UPDATE_TODO_SUCCESS;
+	payload: TodoType;
 }
 
 export type TodoDispatchType =

@@ -7,12 +7,13 @@ import {
 	TodoDispatchType,
 	UPDATE_TODO_SUCCESS,
 } from '../action/todoActionTypes';
+import {deleteTodoById, updateTodoItem} from '../action/todoActionUtils';
 
 export type TodoType = {
 	id: number;
 	title: string;
 	completed: boolean;
-	userId?: number;
+	userId?: number | undefined;
 };
 
 interface DefaultStateI {
@@ -44,11 +45,13 @@ const todoReducer = (
 			case DELETE_TODO_SUCCESS:
 					return {
 							...state,
+							todoList: deleteTodoById(state.todoList, action.id),
 							lastModified: Date.now()
 					};
 			case UPDATE_TODO_SUCCESS:
 					return {
 							...state,
+							todoList: updateTodoItem(state.todoList, action.payload),
 							lastModified: Date.now()
 					};
 			default:

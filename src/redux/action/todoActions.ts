@@ -1,6 +1,7 @@
 import ky from 'ky';
 import {Dispatch} from 'redux';
 import {TodoType} from '../reducer/todoReducer';
+import {toast} from 'react-toastify';
 import {
 	ADD_TODO_SUCCESS,
 	DELETE_TODO_SUCCESS,
@@ -31,11 +32,16 @@ export interface AddTodoPayload {
 export const getAllTodos = (userId: string) =>
 	async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
 		dispatch({type: LOADING_START});
-
+		const id = toast.loading('Fetching data. Please wait...');
 		try {
 			const response = await api.get(`todos?userId=${userId}`).json<Todo[]>();
 			if (response) {
-				console.log('Data fetched successfully');
+				toast.update(id, {
+					render: 'Data fetched successfully',
+					type: 'success',
+					isLoading: false,
+					autoClose: 2000,
+			});
 				dispatch({
 					type: FETCH_TODO_SUCCESS,
 					payload: response,
@@ -44,7 +50,12 @@ export const getAllTodos = (userId: string) =>
 				dispatch({type: LOADING_END});
 			}
 		} catch (err) {
-			console.warn(err);
+			toast.update(id, {
+				render: 'Failed while fetching data. Please refresh again.',
+				type: 'error',
+				isLoading: false,
+				autoClose: 2000,
+		});
 			dispatch({type: LOADING_END});
 		}
 	};
@@ -55,14 +66,14 @@ export const addTodo = (payload: AddTodoPayload) =>
 			const response = await api.post('todos',
 				{json: payload}).json<Todo>();
 			if (response) {
-				console.log('New item added');
+				toast.success('New item added');
 				dispatch({
 					type: ADD_TODO_SUCCESS,
 					payload: response,
 				});
 			}
 		} catch (err) {
-			console.warn(err);
+			toast.error('Add new item failed. Try again.');
 		}
 	};
 
@@ -74,7 +85,7 @@ export const deleteTodo = (id: number) =>
 				dispatch({type: DELETE_TODO_SUCCESS, id});
 			}
 		} catch (err) {
-			console.warn(err);
+			toast.error('Delete item failed. Try again.');
 		}
 };
 
@@ -86,6 +97,6 @@ async (dispatch: Dispatch<TodoDispatchType>): Promise<void> => {
 				dispatch({type: UPDATE_TODO_SUCCESS, payload});
 			}
 		} catch (err) {
-			console.warn(err);
+			toast.error('Update item failed. Try again.');
 		}
 };

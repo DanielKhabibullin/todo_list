@@ -37,17 +37,17 @@ export class Users extends Component<{}, UsersState> {
 
 	async getAllUsers() {
 		try {
-			this.setState({ isLoading: true });
+			this.setState({isLoading: true});
 			const response = await api.get('users').json<User[]>();
-			this.setState({ users: response, isLoading: false });
+			this.setState({users: response, isLoading: false});
 		} catch (err) {
 			console.warn(err);
-			this.setState({ isLoading: false });
+			this.setState({isLoading: false});
 		}
 	}
 
 	render() {
-		const { users, isLoading } = this.state;
+		const {users, isLoading} = this.state;
 
 		return (
 			<>

@@ -89,6 +89,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 		<tr
 			className={todo.completed ? 'table-success' : 'table-danger'}
 			key={todo.id}
+			data-id={todo.id}
 		>
 			<td>{index + 1}</td>
 			{isEditing ? 
@@ -130,6 +131,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 						<Button
 							variant='primary'
 							className='me-1 mb-1'
+							disabled={todo.completed || isLoading}
 							onClick={editTodo}
 						>
 							Edit

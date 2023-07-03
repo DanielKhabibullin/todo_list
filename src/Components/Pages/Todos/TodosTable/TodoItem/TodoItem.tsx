@@ -116,13 +116,15 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 				</td>
 			}
 			<td>
-				<Button
-					variant='danger'
-					className='me-1 mb-1'
-					onClick={() => handleDeleteTodo(todo.id)}
-				>
-					Delete
-				</Button>
+				<input
+					className="me-1"
+					type="checkbox"
+					disabled={isLoading}
+					defaultChecked={todo.completed}
+					onChange={() =>
+						handleCompleteTodo(todo.id, todo.title, todo.completed)
+					}
+				/>
 				{!isEditing &&
 					<>
 						<Button
@@ -133,12 +135,11 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 							Edit
 						</Button>
 						<Button
+							variant='danger'
 							className='me-1 mb-1'
-							variant='secondary'
-							disabled={isLoading}
-							onClick={() => handleCompleteTodo(todo.id, todo.title, todo.completed)}
+							onClick={() => handleDeleteTodo(todo.id)}
 						>
-							{todo.completed ? 'Incomplete' : 'Complete'}
+							Delete
 						</Button>
 					</>
 				}

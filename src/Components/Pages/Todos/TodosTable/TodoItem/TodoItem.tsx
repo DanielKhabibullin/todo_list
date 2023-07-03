@@ -44,6 +44,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 	};
 
 	const handleEditTodo = async (id: number, title: string, completed: boolean) => {
+		if (editedText.trim() === '') {
+			console.warn('Task field cannot be empty');
+			return;
+		}
 		const payload: TodoType = {
 			id,
 			title: editedText,

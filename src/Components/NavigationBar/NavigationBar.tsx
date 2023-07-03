@@ -21,4 +21,3 @@ export const NavigationBar = () => {
 		</>
 	)
 };
-// TODO id

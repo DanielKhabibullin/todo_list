@@ -7,7 +7,6 @@ import {TodoItem} from './TodoItem/TodoItem';
 export const TodosTable = () => {
 	const {todoList, loading} =
 	useAppSelector((state) => state.todo);
-	console.log(loading);
 	return (
 		<>
 		{loading ? (
@@ -17,22 +16,22 @@ export const TodosTable = () => {
 					width={200}
 				/>
 			) : (
-			<Table striped bordered hover responsive>
-				<thead>
-					<tr>
-						<th>№</th>
-						<th>Task</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{todoList.map((todo: TodoType, index) => {
-						return (
-							<TodoItem key={todo.id} todo={todo} index={index}/>
-						);
-					})}
-				</tbody>
-			</Table>
+				<Table striped bordered hover responsive>
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Task</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{todoList.map((todo: TodoType, index) => {
+							return (
+								<TodoItem key={todo.id} todo={todo} index={index}/>
+							);
+						})}
+					</tbody>
+				</Table>
 			)}
 		</>
 	);

@@ -65,3 +65,26 @@ Feel free to explore the project, make changes, and add additional tests as need
 
 License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the LICENSE file for more information.
+
+### Elapsed time table
+
+|    Date    |   Commit   | Elapsed Time | Start Time | End Time |
+|:----------:|:----------:|:----------:|:----------:|:--------:|
+| 2023-06-30 |  Initial commit  |    0 hours |  12:00   | 12:00  |
+| 2023-06-30 |  Initialize CRA and add dependencies  |    30 min  |   12:00   |  12:30  |
+| 2023-06-30 |  Add routing and Users page | 1 hour, 20 mins |   12:30   | 13:50  |
+| 2023-06-30 |  Add responsive and email for Users page |    20 mins |   13:50   | 14:10  |
+| 2023-06-30 |  Add Todos page |  1 hour, 25 mins |   15:40   | 16:55  |
+| 2023-06-30 |  Add todos table, store, reducer, actions for todos | 2 hours, 30 mins |   18:30   | 21:00 |
+| 2023-07-01 |  Rework getAllTodos with redux | 1 hour, 30 mins |   12:00   | 13:30 |
+| 2023-07-01 |  Separate todos in modules | 1 hour, 30 mins |   13:30   | 15:00 |
+| 2023-07-01 | Add addTodo | 1 hour, 50 mins |   20:30   | 22:20 |
+| 2023-07-02 |  Add deleteTodo | 45 mins |   12:00   | 12:45 |
+| 2023-07-02 |  Add editTodo | 1 hour, 10 mins |   12:45   | 13:55 |
+| 2023-07-03 |  Add rework TodosTable, complete edit logic | 1 hour, 25 mins |   15:20   | 16:45 |
+| 2023-07-03 |  Rebuild User.tsx and add counter | 45 mins |   16:45   | 17:30 |
+| 2023-07-03 |  Add toastify | 20 mins |    17:30   | 17:50  |
+| 2023-07-03 |  Change complete button on checkbox | 20 mins |   22:40   | 23:00 |
+| 2023-07-03 |  Add some cypress tests | 2 hours, 15 mins |   23:00   | 01:15 |
+| 2023-07-04 |  Complete tests and fix Link in NavigationBar. Edit readme. | 30 mins |   12:00   | 12:30 |
+### **TOTAL : 18 hours, 25 minutes.**

@@ -59,7 +59,7 @@ The project includes end-to-end tests for the main CRUD operations using Cypress
 
 ## Deployment
 
-The project is deployed on Vercel and can be accessed at [vercel](https://vercel.app).
+The project is deployed on Vercel and can be accessed at [vercel.app](https://todo-app-dakh.vercel.app/).
 
 Feel free to explore the project, make changes, and add additional tests as needed. This exercise will help you understand how to build a web interface for CRUD operations using React.js and interact with a REST API. Don't hesitate to reach out if you have any questions or need further assistance.
 

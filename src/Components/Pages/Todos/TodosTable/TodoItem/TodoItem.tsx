@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {deleteTodo, updateTodo} from "../../../../../redux/action/todoActions";
 import {useAppDispatch} from "../../../../../redux/hooks";
 import {TodoType} from "../../../../../redux/reducer/todoReducer";
+import {ConfirmModal} from "./ConfirmModal/ConfirmModal";
 
 interface TodoItemProps {
 	todo: TodoType;
@@ -18,14 +19,20 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 	const [editedText, setEditedText] = useState(todo.title);
 	const {userId} = useParams<{userId?: string}>();
 	const userIdNumber = userId ? parseInt(userId) : undefined;
+	const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
 	const tdRef = useRef<HTMLTableCellElement>(null);
 
-	const handleDeleteTodo = async (todoId: number) => {
+	const handleDeleteTodo = () => {
+		setIsConfirmModalOpen(true);
+	};
+
+	const onConfirm = async (todoId: number) => {
+		setIsConfirmModalOpen(false);
 		setIsLoading(true);
 		await dispatch<any>(deleteTodo(todoId));
 		setIsLoading(false);
-	};
+	}
 
 	const handleCompleteTodo = async (id: number, title: string, completed: boolean) => {
 		const payload: TodoType = {
@@ -86,85 +93,93 @@ export const TodoItem: React.FC<TodoItemProps> = ({todo, index}) => {
 	}, [isEditing]);
 
 	return (
-		<tr
-			className={todo.completed ? 'table-success' : 'table-danger'}
-			key={todo.id}
-			data-id={todo.id}
-		>
-			<td>{index + 1}</td>
-			{isEditing ? 
-				<td
-					ref={tdRef}
-					contentEditable={true}
-					suppressContentEditableWarning={true}
-					onBlur={() => setEditedText(tdRef.current?.innerText || '')}
-					onKeyDown={(e) => {
-						if (e.key === 'Enter') {
-							e.preventDefault();
-							e.currentTarget.blur();
-							handleEditTodo(todo.id, todo.title, todo.completed)
+		<>
+			<tr
+				className={todo.completed ? 'table-success' : 'table-danger'}
+				key={todo.id}
+				data-id={todo.id}
+			>
+				<td>{index + 1}</td>
+				{isEditing ? 
+					<td
+						ref={tdRef}
+						contentEditable={true}
+						suppressContentEditableWarning={true}
+						onBlur={() => setEditedText(tdRef.current?.innerText || '')}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								e.preventDefault();
+								e.currentTarget.blur();
+								handleEditTodo(todo.id, todo.title, todo.completed)
+							}
+						}}
+					>
+						{editedText}
+					</td>
+					:
+					<td
+						className={`${todo.completed ?
+							'text-decoration-line-through table-success' : ''}`}
+						onDoubleClick={() => setIsEditing(true)}
+					>{todo.title}
+					</td>
+				}
+				<td>
+					<input
+						className="me-1"
+						type="checkbox"
+						disabled={isLoading}
+						defaultChecked={todo.completed}
+						onChange={() =>
+							handleCompleteTodo(todo.id, todo.title, todo.completed)
 						}
-					}}
-				>
-					{editedText}
-				</td>
-				:
-				<td
-					className={`${todo.completed ?
-						'text-decoration-line-through table-success' : ''}`}
-					onDoubleClick={() => setIsEditing(true)}
-				>{todo.title}
-				</td>
-			}
-			<td>
-				<input
-					className="me-1"
-					type="checkbox"
-					disabled={isLoading}
-					defaultChecked={todo.completed}
-					onChange={() =>
-						handleCompleteTodo(todo.id, todo.title, todo.completed)
+					/>
+					{!isEditing &&
+						<>
+							<Button
+								variant='primary'
+								className='me-1 mb-1'
+								disabled={todo.completed || isLoading}
+								onClick={editTodo}
+							>
+								Edit
+							</Button>
+							<Button
+								variant='danger'
+								className='me-1 mb-1'
+								onClick={handleDeleteTodo}
+							>
+								Delete
+							</Button>
+						</>
 					}
-				/>
-				{!isEditing &&
-					<>
-						<Button
-							variant='primary'
-							className='me-1 mb-1'
-							disabled={todo.completed || isLoading}
-							onClick={editTodo}
-						>
-							Edit
-						</Button>
-						<Button
-							variant='danger'
-							className='me-1 mb-1'
-							onClick={() => handleDeleteTodo(todo.id)}
-						>
-							Delete
-						</Button>
-					</>
-				}
-				{isEditing &&
-					<>
-						<Button
-							variant='success'
-							className='me-1 mb-1'
-							disabled={isLoading || editedText.trim().length === 0}
-							onClick={() => handleEditTodo(todo.id, todo.title, todo.completed)}
-						>
-							Save
-						</Button>
-						<Button
-							variant='secondary'
-							className='me-1 mb-1'
-							onClick={() => setIsEditing(false)}
-						>
-							Cancel
-						</Button>
-					</>
-				}
-			</td>
-		</tr>
+					{isEditing &&
+						<>
+							<Button
+								variant='success'
+								className='me-1 mb-1'
+								disabled={isLoading || editedText.trim().length === 0}
+								onClick={() => handleEditTodo(todo.id, todo.title, todo.completed)}
+							>
+								Save
+							</Button>
+							<Button
+								variant='secondary'
+								className='me-1 mb-1'
+								onClick={() => setIsEditing(false)}
+							>
+								Cancel
+							</Button>
+						</>
+					}
+				</td>
+			</tr>
+			<ConfirmModal
+				isOpen={isConfirmModalOpen}
+				onClose={() => setIsConfirmModalOpen(false)}
+				onConfirm={() => {onConfirm(todo.id)}}
+				taskText={todo.title}
+			/>
+		</>
 	);
 };

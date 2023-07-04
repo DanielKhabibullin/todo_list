@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+# CRUD Web Interface Exercise
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a sample project that demonstrates a typical web interface for performing CRUD (Create, Read, Update, Delete) operations using a REST API. It utilizes the placeholder REST API provided by [jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com/) as a mock API.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+The project utilizes the following technologies, libraries, and features:
 
-### `npm start`
+- **React.js**: A JavaScript library for building user interfaces.
+- **React Router**: A library for handling routing in a React application.
+- **React Bootstrap**: A library of reusable UI components for React.
+- **Redux**: A state management library for managing the application state.
+- **ky**: A library for making HTTP requests to the REST API. ()
+- **TypeScript**: A statically typed superset of JavaScript, providing type checking and better code maintainability.
+- **Cypress**: An end-to-end testing framework for testing web applications.
+- **Responsive Design**: The web interface is designed to be responsive and work well on different screen sizes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The web interface includes the following features:
 
-### `npm test`
+- Listing all todo items.
+- Adding a new todo item.
+- Marking a todo item as complete/in
+- Editing a todo item.
+- Deleting a todo item.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+To get started with the project, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository to your local machine.
+2. Install the project dependencies by running `npm install`.
+3. Start the development server by running `npm start`.
+4. Open your browser and navigate to http://localhost:3000 to view the web interface.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Note: Make sure you have Node.js and npm (Node Package Manager) installed on your machine.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## API Integration
 
-### `npm run eject`
+The project utilizes the REST API provided by jsonplaceholder.typicode.com for CRUD operations on todo items. The API endpoints used in this project are as follows:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- GET `/users`: Get all users.
+- GET `/todos`: Get all todo items.
+- POST `/todos`: Add a new todo item.
+- PUT `/todos/{id}`: Update a specific todo item.
+- DELETE `/todos/{id}`: Delete a specific todo item.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Testing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The project includes end-to-end tests for the main CRUD operations using Cypress. Cypress is an end-to-end testing framework for testing web applications. To run the tests, follow these steps:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Make sure the development server is running (npm start).
+2. Open a new terminal window and navigate to the project root directory.
+3. Run the command `npm run cypress:open` to open the Cypress test runner.
+4. In the Cypress test runner, select the appropriate test file to run the tests.
+5. Cypress will open a new browser window and execute the tests.
+6. You can view the test results in the Cypress test runner window.
 
-## Learn More
+## Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The project is deployed on Vercel and can be accessed at [vercel](https://vercel.app).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Feel free to explore the project, make changes, and add additional tests as needed. This exercise will help you understand how to build a web interface for CRUD operations using React.js and interact with a REST API. Don't hesitate to reach out if you have any questions or need further assistance.
+
+License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the LICENSE file for more information.

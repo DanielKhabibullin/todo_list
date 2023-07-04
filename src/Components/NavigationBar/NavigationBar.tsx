@@ -1,10 +1,11 @@
 import {Nav, Navbar} from 'react-bootstrap'
-import {NavLink} from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import logo from './img/logo96.png';
 import logoSm from './img/logo32.png';
 import style from './NavigationBar.module.scss';
 
 export const NavigationBar = () => {
+	const {userId} = useParams<{userId?: string}>();
 	return (
 		<> 
 			<Navbar expand="lg" bg="dark" data-bs-theme="dark">
@@ -15,7 +16,7 @@ export const NavigationBar = () => {
 				</NavLink>
 				<Nav className="me-auto">
 					<NavLink className="ms-4 me-4 mb-2" to="/">Penguins</NavLink>
-					<NavLink className="ms-4 me-4" to={`todos/1`}>ToDo List</NavLink> 
+					<NavLink className="ms-4 me-4" to={`${userId ? 'todos/' + userId : 'todos/1'}`}>ToDo List</NavLink> 
 				</Nav>
 			</Navbar>
 		</>
